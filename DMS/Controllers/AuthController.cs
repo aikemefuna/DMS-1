@@ -45,12 +45,12 @@ namespace DMS.Controllers
 
                 if (_user[0].UserRole == "Admin")
                 {
-                    identity.AddClaim(new Claim(ClaimTypes.Role, "AdminOrUser"));
+                    identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
                     return RedirectToAction("Index", "Home");
                 }
                 else if (_user[0].UserRole == "User")
                 {
-                    identity.AddClaim(new Claim(ClaimTypes.Role, "AdminOrUser"));
+                    identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
                     return RedirectToAction("Index", "Home");
                 }
                 
