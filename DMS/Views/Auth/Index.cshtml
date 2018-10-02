@@ -25,14 +25,13 @@
             <img src="~/adminlte/Content/loading.gif" width="150" />
         </div>
         <div class="login-logo">
-            <i class="fa fa-check-square" aria-hidden="true"></i>
-            <a href="/"><b>DMS</b></a>
+          
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <br>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg"> <img src="~/images/logo.png" style="height:30px;width:30px;" />Document Management System</p>
                 <p class="login-box-msg" style="color:red;">@TempData["error"]</p>
 
                 <form action="/Auth/Login" method="post">
@@ -62,11 +61,7 @@
                 </form>
 
 
-                <!-- /.social-auth-links -->
-
-                <p class="mb-1">
-                    <a href="#">I forgot my password</a>
-                </p>
+               
                 <br>
             </div>
             <!-- /.login-card-body -->
