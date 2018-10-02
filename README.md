@@ -10,10 +10,10 @@ Technologies Used: C# ASP.NET core 2.1 (MVC ) , 3-tier Architechture, EF Code Fi
 -User can Searche & Downloads
 
 #Screenshots
-<img src="DMS/wwwroot/demos/1.png" alt="demo"/>
-<img src="DMS/wwwroot/demos/2.png" alt="demo"/>
-<img src="DMS/wwwroot/demos/3.png" alt="demo"/>
-<img src="DMS/wwwroot/demos/4.png" alt="demo"/>
-<img src="DMS/wwwroot/demos/5.png" alt="demo"/>
+<img src="readme/1.png" alt="demo"/>
+<img src="readme/2.png" alt="demo"/>
+<img src="readme/3.png" alt="demo"/>
+<img src="readme/4.png" alt="demo"/>
+<img src="readme/5.png" alt="demo"/>
 
 
