@@ -18,28 +18,44 @@ namespace BusinessLayer
         {
             _context = db;
         }
-
         public DocumentService(DMSContext db, IHostingEnvironment appEnvironment)
         {
             _context = db;
             _appEnvironment = appEnvironment;
         }
-
-        public async Task<IQueryable<DocumentViewModel>> getAllDocuments(string email)
+        //get documents 
+        public async Task<IQueryable<DocumentViewModel>> GetDocuments(string email,string str)
         {
             var user = _context.Users.Where(x => x.UserEmail == email).FirstOrDefault();
+            var doc = from x in _context.Documents
+                        where x.UsersUserId == user.UserId
+                        select x;
             var items = from x in _context.Documents
-                    where x.UsersUserId == user.UserId
-                    select new DocumentViewModel
-                    {
-                        DocumentId = x.DocumentId,
-                        DocumentPath = x.DocumentPath,
-                        DocumentName = x.DocumentName,
-                        CategoryId = x.CategoryId,
-                        CategoryName = x.Category.CategoryName
-                    };
+                        where x.UsersUserId == user.UserId                        
+            select new DocumentViewModel
+            {
+                DocumentId = x.DocumentId,
+                DocumentPath = x.DocumentPath,
+                DocumentName = x.DocumentName,
+                CategoryId = x.CategoryId,
+                CategoryName = x.Category.CategoryName
+            };
+            if (!string.IsNullOrEmpty(str))
+            {
+                var searcheditems = from x in doc.Where(x => x.DocumentTags.Contains(str) || x.DocumentName.Contains(str) || x.Category.CategoryName.Contains(str) )
+                        select new DocumentViewModel
+                        {
+                            DocumentId = x.DocumentId,
+                            DocumentPath = x.DocumentPath,
+                            DocumentName = x.DocumentName,
+                            CategoryId = x.CategoryId,
+                            CategoryName = x.Category.CategoryName
+                        };
+                return searcheditems.AsQueryable();
+            }
             return items.AsQueryable();
         }
+        //Upload documents
         public bool documentUpload(IFormFile file, string path,Document document,string email)
         {
             var user = _context.Users.Where(x => x.UserEmail == email).FirstOrDefault();
@@ -61,8 +77,6 @@ namespace BusinessLayer
                         _context.Add(item);
                         _context.SaveChanges();
                         file.CopyTo(stream);
-
-
                     }
                 }
                 catch (Exception ex)
@@ -77,18 +91,17 @@ namespace BusinessLayer
             }
             return true;
         }
-
+        //get document path
         public string getPath(int id)
         {
             var item = _context.Documents.Where(x => x.DocumentId == id).FirstOrDefault();
             return item.DocumentPath;
         }
-
+        //get document name
         public string getName(int id)
         {
             var item = _context.Documents.Where(x => x.DocumentId == id).FirstOrDefault();
             return item.DocumentName;
         }
-
     }
 }

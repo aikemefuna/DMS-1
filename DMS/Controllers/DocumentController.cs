@@ -16,6 +16,7 @@ namespace DMS.Controllers
         private readonly IHostingEnvironment _appEnvironment;
         private readonly DocumentService _doc;
         private CategoryService _cats;
+
         public DocumentController(
             IHostingEnvironment appEnvironment,
             DMSContext context )
@@ -24,23 +25,27 @@ namespace DMS.Controllers
             _doc =new DocumentService(context);
             _cats = new CategoryService(context);
         }
-
-        public async Task<IActionResult> Index(int page=1)
-        {
+        //get self uploaded documents 
+        public async Task<IActionResult> Index(string str,int page)
+        { 
             var email = HttpContext.Session.GetString("UserEmail");
-            var documentList =await _doc.getAllDocuments(email);
+            if (str != null)
+            {
+                page = 1;
+            }
+            page = 1;
+            var documentList = await _doc.GetDocuments(email,str);
             int pageSize = 3;
             return View(await PaginatedList<DocumentViewModel>.CreateAsync(documentList.AsNoTracking(), page, pageSize));
         }
-
+        //get document upload view page
         public IActionResult Create()
         {
             var email = HttpContext.Session.GetString("UserEmail");
             ViewBag.categories = _cats.GetAll(email);
             return View();
-          
         }
-   
+        //document upload process
         [HttpPost]
         public async Task<IActionResult> Create(IFormFile file,Document document)
         {
@@ -68,7 +73,7 @@ namespace DMS.Controllers
             }
             return View();
         }
-
+       //document download 
         public async Task<FileResult> Download(int id)
         {
             string filePath = _doc.getPath(id);
@@ -91,7 +96,7 @@ namespace DMS.Controllers
             var ext = Path.GetExtension(path).ToLowerInvariant();
             return types[ext];
         }
-
+        //mime types
         private Dictionary<string, string> GetMimeTypes()
         {
             return new Dictionary<string, string>
