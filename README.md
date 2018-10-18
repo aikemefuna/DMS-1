@@ -1,6 +1,7 @@
 # DMS -Document Management System
 
-Technologies Used: C# ASP.NET core 2.1 (MVC ) , 3-tier Architechture, EF Code First
+# Technologies
+C# ASP.NET core 2.1 (MVC ) , 3-tier Architechture, EF Code First
 
 # Features
 <ul>
@@ -17,4 +18,8 @@ Technologies Used: C# ASP.NET core 2.1 (MVC ) , 3-tier Architechture, EF Code Fi
 <img src="readme/4.png" alt="demo"/>
 <img src="readme/5.png" alt="demo"/>
 
+#installation
+step 1: $ git clone https://github.com/nayeemazad/DMS.git
+step 2: go to directory DMS/DMS.WebUI/wwwroot 
+final step: look for the file named as "UNZIP_ME.zip" and unzip it at DMS/DMS.WebUI/wwwroot.
 
